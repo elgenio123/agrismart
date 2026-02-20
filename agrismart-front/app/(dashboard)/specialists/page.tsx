@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { PageTransition, AnimateIn } from "@/components/ui/motion";
 import { chatMessages, specialists } from "@/lib/mock-data";
 import type { ChatMessage } from "@/lib/types";
 import {
@@ -89,7 +90,8 @@ export default function SpecialistsPage() {
   };
 
   return (
-    <div className="flex h-[calc(100vh-4rem)] gap-6">
+    <PageTransition>
+    <div className="flex flex-col md:flex-row h-[calc(100vh-4rem)] gap-6">
       {/* ─── Chat Area ─── */}
       <div className="flex flex-1 flex-col">
         {/* Chat Header */}
@@ -99,7 +101,7 @@ export default function SpecialistsPage() {
               <Cpu className="h-5 w-5 text-white" />
             </div>
             <div>
-              <h2 className="font-bold text-text-primary">AI Specialist Support</h2>
+              <h2 className="font-extrabold text-text-primary tracking-tight">AI Specialist Support</h2>
               <p className="text-xs text-primary-600 font-medium">
                 Specialist Persona Active
               </p>
@@ -169,7 +171,7 @@ export default function SpecialistsPage() {
         </div>
 
         {/* Input */}
-        <div className="mt-4 flex items-center gap-3 rounded-xl border border-border bg-white px-4 py-3">
+        <div className="mt-4 flex items-center gap-3 rounded-xl border border-border bg-white px-4 py-3 shadow-sm focus-within:ring-2 focus-within:ring-primary-500/20 focus-within:border-primary-300 transition-all">
           <button className="flex h-8 w-8 items-center justify-center rounded-full bg-primary-50 text-primary-600 hover:bg-primary-100 transition-colors cursor-pointer shrink-0">
             <span className="text-lg font-bold">+</span>
           </button>
@@ -195,8 +197,9 @@ export default function SpecialistsPage() {
         <h3 className="text-xs font-bold uppercase tracking-wider text-text-muted">
           Related Specialists
         </h3>
-        {specialists.map((spec) => (
-          <Card key={spec.id} className="text-center">
+        {specialists.map((spec, i) => (
+          <AnimateIn key={spec.id} delay={i * 0.08}>
+          <Card hover className="text-center">
             {/* Avatar */}
             <div className="mx-auto h-14 w-14 rounded-full bg-gradient-to-br from-amber-300 to-amber-500 flex items-center justify-center mb-3">
               <span className="text-lg font-bold text-white">
@@ -219,6 +222,7 @@ export default function SpecialistsPage() {
               Connect Now
             </Button>
           </Card>
+          </AnimateIn>
         ))}
 
         {/* Human-in-the-loop notice */}
@@ -239,5 +243,6 @@ export default function SpecialistsPage() {
         </Card>
       </div>
     </div>
+    </PageTransition>
   );
 }

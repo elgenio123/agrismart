@@ -5,6 +5,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Toggle } from "@/components/ui/toggle";
+import { PageTransition, AnimateIn, StaggerContainer, StaggerItem } from "@/components/ui/motion";
 import { currentUser, managedFields } from "@/lib/mock-data";
 import {
   Mail,
@@ -62,10 +63,11 @@ export default function SettingsPage() {
   };
 
   return (
-    <div className="max-w-4xl">
+    <PageTransition>
+    <div className="w-full">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-2xl font-bold text-text-primary">
+        <h1 className="text-2xl font-extrabold text-text-primary tracking-tight">
           Settings & Profile
         </h1>
         <p className="mt-1 text-text-secondary">
@@ -76,9 +78,10 @@ export default function SettingsPage() {
 
       <div className="space-y-6">
         {/* ─── Personal Information ─── */}
+        <AnimateIn>
         <Card>
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-lg font-bold text-text-primary">
+            <h2 className="text-lg font-extrabold text-text-primary tracking-tight">
               Personal Information
             </h2>
             <button className="text-sm font-medium text-primary-600 hover:text-primary-700 transition-colors cursor-pointer">
@@ -86,7 +89,7 @@ export default function SettingsPage() {
             </button>
           </div>
 
-          <div className="flex items-start gap-6">
+          <div className="flex flex-col sm:flex-row items-start gap-6">
             {/* Avatar */}
             <div className="relative shrink-0">
               <div className="h-20 w-20 rounded-full bg-gradient-to-br from-amber-300 to-amber-600 flex items-center justify-center">
@@ -103,7 +106,7 @@ export default function SettingsPage() {
             </div>
 
             {/* Form fields */}
-            <div className="flex-1 grid grid-cols-2 gap-4">
+            <div className="flex-1 w-full grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-semibold text-text-primary mb-1">
                   Full Name
@@ -112,7 +115,7 @@ export default function SettingsPage() {
                   type="text"
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
-                  className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm focus:border-primary-500 focus:ring-1 focus:ring-primary-500 focus:outline-none"
+                  className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 focus:outline-none hover:border-gray-300 transition-all duration-200"
                 />
               </div>
               <div>
@@ -123,7 +126,7 @@ export default function SettingsPage() {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm focus:border-primary-500 focus:ring-1 focus:ring-primary-500 focus:outline-none"
+                  className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 focus:outline-none hover:border-gray-300 transition-all duration-200"
                 />
               </div>
               <div>
@@ -134,7 +137,7 @@ export default function SettingsPage() {
                   type="tel"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
-                  className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm focus:border-primary-500 focus:ring-1 focus:ring-primary-500 focus:outline-none"
+                  className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 focus:outline-none hover:border-gray-300 transition-all duration-200"
                 />
               </div>
               <div>
@@ -144,7 +147,7 @@ export default function SettingsPage() {
                 <select
                   value={language}
                   onChange={(e) => setLanguage(e.target.value)}
-                  className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm focus:border-primary-500 focus:ring-1 focus:ring-primary-500 focus:outline-none cursor-pointer appearance-none"
+                  className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 focus:outline-none hover:border-gray-300 transition-all duration-200 cursor-pointer appearance-none"
                 >
                   <option>English (US)</option>
                   <option>Español</option>
@@ -155,11 +158,13 @@ export default function SettingsPage() {
             </div>
           </div>
         </Card>
+        </AnimateIn>
 
         {/* ─── Disease & Pest Alerts ─── */}
+        <AnimateIn delay={0.1}>
         <Card>
           <div className="mb-4">
-            <h2 className="text-lg font-bold text-text-primary">
+            <h2 className="text-lg font-extrabold text-text-primary tracking-tight">
               Disease & Pest Alerts
             </h2>
             <p className="text-sm text-text-secondary mt-0.5">
@@ -173,7 +178,7 @@ export default function SettingsPage() {
                 key={item.id}
                 className="flex items-center gap-4 rounded-lg border border-border-light p-4 hover:bg-surface-secondary/50 transition-colors"
               >
-                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary-50 text-primary-600 shrink-0">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary-50 text-primary-600 shrink-0 shadow-sm">
                   <item.icon className="h-5 w-5" />
                 </div>
                 <div className="flex-1 min-w-0">
@@ -195,7 +200,7 @@ export default function SettingsPage() {
         <Card>
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h2 className="text-lg font-bold text-text-primary">
+              <h2 className="text-lg font-extrabold text-text-primary tracking-tight">
                 Field Management
               </h2>
               <p className="text-sm text-text-secondary mt-0.5">
@@ -235,7 +240,7 @@ export default function SettingsPage() {
                   return (
                     <tr
                       key={field.id}
-                      className="border-b border-border-light last:border-0"
+                      className="border-b border-border-light last:border-0 hover:bg-surface-secondary/40 transition-colors"
                     >
                       <td className="py-3 font-medium text-text-primary">
                         {field.name}
@@ -266,13 +271,17 @@ export default function SettingsPage() {
             </table>
           </div>
         </Card>
+        </AnimateIn>
 
         {/* Save / Cancel */}
+        <AnimateIn delay={0.3}>
         <div className="flex items-center justify-end gap-3 pb-6">
           <Button variant="secondary">Cancel Changes</Button>
           <Button>Save All Settings</Button>
         </div>
+        </AnimateIn>
       </div>
     </div>
+    </PageTransition>
   );
 }

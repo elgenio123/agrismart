@@ -33,7 +33,7 @@ export const scans: Scan[] = [
     crop: "Corn",
     healthIndex: 94,
     status: "healthy",
-    imageUrl: "/scans/field-1.jpg",
+    imageUrl: "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=400&q=70&auto=format&fit=crop",
     scanType: "HD CAPTURE",
   },
   {
@@ -45,7 +45,7 @@ export const scans: Scan[] = [
     crop: "Soybeans",
     healthIndex: 72,
     status: "warning",
-    imageUrl: "/scans/field-2.jpg",
+    imageUrl: "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=400&q=70&auto=format&fit=crop",
     scanType: "NDVI INDEX",
   },
   {
@@ -57,7 +57,7 @@ export const scans: Scan[] = [
     crop: "Wheat",
     healthIndex: 89,
     status: "healthy",
-    imageUrl: "/scans/field-3.jpg",
+    imageUrl: "https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=400&q=70&auto=format&fit=crop",
     scanType: "THERMAL",
   },
   {
@@ -93,7 +93,7 @@ export const detectionResult: DetectionResult = {
   severityLevel: "high",
   clinicalSummary:
     "Visual markers indicate progressive chlorosis and necrotic lesions in Sector 7G. Patterns suggest Xanthomonas campestris pathology. Recent high humidity (84% avg) has accelerated the spread. Immediate intervention recommended to prevent systemic plot contamination.",
-  imageUrl: "/scans/leaf-disease.jpg",
+  imageUrl: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=600&q=70&auto=format&fit=crop",
   suggestedActions: [
     {
       id: 1,

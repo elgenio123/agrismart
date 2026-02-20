@@ -49,11 +49,13 @@ export function Input({
         <input
           type={inputType}
           className={cn(
-            "w-full rounded-lg border border-border bg-white px-4 py-2.5 text-sm text-text-primary placeholder:text-text-muted transition-colors",
-            "focus:border-primary-500 focus:ring-1 focus:ring-primary-500 focus:outline-none",
+            "w-full rounded-lg border border-border bg-white px-4 py-2.5 text-sm text-text-primary placeholder:text-text-muted",
+            "transition-all duration-200 ease-out",
+            "focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 focus:outline-none",
+            "hover:border-gray-300",
             Icon && "pl-10",
             showPasswordToggle && "pr-10",
-            error && "border-danger focus:border-danger focus:ring-danger",
+            error && "border-danger focus:border-danger focus:ring-danger/20",
             className
           )}
           {...props}

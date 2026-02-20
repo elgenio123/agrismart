@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { PageTransition, AnimateIn, StaggerContainer, StaggerItem } from "@/components/ui/motion";
 import { detectionResult } from "@/lib/mock-data";
 import {
   Download,
@@ -34,7 +35,7 @@ export default function DetectionPage() {
   };
 
   return (
-    <div>
+    <PageTransition>
       {/* Breadcrumb */}
       <div className="mb-2 text-sm text-text-muted">
         <Link href="/history" className="hover:text-text-primary transition-colors">
@@ -47,7 +48,7 @@ export default function DetectionPage() {
       {/* Header */}
       <div className="flex items-start justify-between mb-6">
         <div>
-          <h1 className="text-3xl font-bold text-text-primary">{d.diseaseName}</h1>
+          <h1 className="text-3xl font-extrabold text-text-primary tracking-tight">{d.diseaseName}</h1>
           <div className="mt-2 flex items-center gap-4 text-sm text-text-secondary">
             <span className="flex items-center gap-1">
               <MapPin className="h-3.5 w-3.5 text-primary-500" />
@@ -75,6 +76,7 @@ export default function DetectionPage() {
         {/* ─── Left: Image & Summary (3/5) ─── */}
         <div className="lg:col-span-3 space-y-6">
           {/* Analyzed Scan Area */}
+          <AnimateIn>
           <Card>
             <div className="flex items-center justify-between mb-4">
               <h3 className="font-bold text-text-primary flex items-center gap-2">
@@ -100,8 +102,10 @@ export default function DetectionPage() {
               </div>
             </div>
           </Card>
+          </AnimateIn>
 
           {/* Clinical Summary */}
+          <AnimateIn delay={0.1}>
           <Card>
             <h4 className="text-[10px] font-bold uppercase tracking-[0.15em] text-text-muted mb-3">
               Clinical Summary
@@ -117,21 +121,23 @@ export default function DetectionPage() {
               ))}
             </p>
           </Card>
+          </AnimateIn>
 
           {/* Suggested Actions */}
           <div>
-            <h2 className="flex items-center gap-2 text-lg font-bold text-text-primary mb-4">
+            <h2 className="flex items-center gap-2 text-lg font-extrabold text-text-primary mb-4 tracking-tight">
               <div className="h-6 w-6 rounded bg-primary-500 flex items-center justify-center">
                 <CheckSquare className="h-3.5 w-3.5 text-white" />
               </div>
               Suggested Actions & Treatment
             </h2>
-            <div className="space-y-3">
+            <StaggerContainer className="space-y-3" staggerAmount={0.08}>
               {d.suggestedActions.map((action) => {
                 const p = priorityConfig[action.priority];
                 return (
-                  <Card key={action.id} className="flex items-start gap-4">
-                    <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-surface-secondary text-text-primary font-bold text-sm shrink-0">
+                  <StaggerItem key={action.id}>
+                  <Card hover className="flex items-start gap-4">
+                    <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-surface-secondary text-text-primary font-bold text-sm shrink-0 shadow-sm">
                       {action.id}
                     </div>
                     <div className="flex-1">
@@ -150,15 +156,17 @@ export default function DetectionPage() {
                       </p>
                     </div>
                   </Card>
+                  </StaggerItem>
                 );
               })}
-            </div>
+            </StaggerContainer>
           </div>
         </div>
 
         {/* ─── Right: Confidence & Severity (2/5) ─── */}
         <div className="lg:col-span-2 space-y-4">
           {/* Confidence Level */}
+          <AnimateIn delay={0.1}>
           <Card className="text-center">
             <h3 className="text-xs font-bold uppercase tracking-wider text-text-muted mb-6">
               Confidence Level
@@ -179,7 +187,7 @@ export default function DetectionPage() {
                 />
               </svg>
               <div className="absolute inset-0 flex flex-col items-center justify-center">
-                <span className="text-2xl font-bold text-text-primary">{d.confidence}%</span>
+                <span className="text-2xl font-extrabold text-text-primary tabular-nums">{d.confidence}%</span>
                 <span className="text-xs font-semibold uppercase text-primary-500">Optimal</span>
               </div>
             </div>
@@ -188,8 +196,10 @@ export default function DetectionPage() {
               markers.
             </p>
           </Card>
+          </AnimateIn>
 
           {/* Severity Level */}
+          <AnimateIn delay={0.2}>
           <Card>
             <h3 className="text-xs font-bold uppercase tracking-wider text-text-muted mb-4">
               Severity Level
@@ -215,8 +225,9 @@ export default function DetectionPage() {
               </Badge>
             </div>
           </Card>
+          </AnimateIn>
         </div>
       </div>
-    </div>
+    </PageTransition>
   );
 }

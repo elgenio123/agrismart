@@ -2,10 +2,12 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import { motion } from "framer-motion";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ProgressBar } from "@/components/ui/progress-bar";
+import { PageTransition, StaggerContainer, StaggerItem, AnimateIn } from "@/components/ui/motion";
 import { scans, historyStats } from "@/lib/mock-data";
 import {
   Search,
@@ -18,7 +20,7 @@ import {
   AlertTriangle,
   TrendingUp,
   FileText,
-} from "lucide-react";
+}  from "lucide-react";
 
 const statusConfig = {
   healthy: { variant: "success" as const, icon: "●" },
@@ -45,11 +47,11 @@ export default function HistoryPage() {
   );
 
   return (
-    <div>
+    <PageTransition>
       {/* Header */}
       <div className="flex items-start justify-between mb-6">
         <div>
-          <h1 className="text-2xl font-bold text-text-primary">
+          <h1 className="text-2xl font-extrabold text-text-primary tracking-tight">
             Scan History & Reports
           </h1>
           <p className="mt-1 text-text-secondary">
@@ -69,38 +71,41 @@ export default function HistoryPage() {
       </div>
 
       {/* Filters */}
-      <Card className="mb-6">
-        <div className="flex flex-wrap items-center gap-3">
-          <div className="relative flex-1 min-w-[200px]">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-text-muted" />
-            <input
-              type="text"
-              placeholder="Search by F..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full rounded-lg border border-border bg-white py-2 pl-9 pr-4 text-sm focus:border-primary-500 focus:ring-1 focus:ring-primary-500 focus:outline-none"
-            />
-          </div>
-          <button className="inline-flex items-center gap-2 rounded-lg border border-border px-3 py-2 text-sm text-text-secondary hover:bg-surface-secondary transition-colors cursor-pointer">
+      <AnimateIn>
+        <Card className="mb-6">
+          <div className="flex flex-wrap items-center gap-3">
+            <div className="relative flex-1 min-w-[200px]">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-text-muted" />
+              <input
+                type="text"
+                placeholder="Search by F..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full rounded-lg border border-border bg-white py-2.5 pl-9 pr-4 text-sm transition-all duration-200 hover:border-gray-300 focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 focus:outline-none"
+              />
+            </div>
+          <button className="inline-flex items-center gap-2 rounded-lg border border-border px-3 py-2.5 text-sm text-text-secondary hover:bg-surface-secondary hover:border-gray-300 transition-all duration-200 cursor-pointer">
             <Calendar className="h-4 w-4" />
             Date: Last 30 Days
           </button>
-          <button className="inline-flex items-center gap-2 rounded-lg border border-border px-3 py-2 text-sm text-text-secondary hover:bg-surface-secondary transition-colors cursor-pointer">
+          <button className="inline-flex items-center gap-2 rounded-lg border border-border px-3 py-2.5 text-sm text-text-secondary hover:bg-surface-secondary hover:border-gray-300 transition-all duration-200 cursor-pointer">
             <Filter className="h-4 w-4" />
             Crop Type: All
           </button>
-          <button className="inline-flex items-center gap-2 rounded-lg border border-border px-3 py-2 text-sm text-text-secondary hover:bg-surface-secondary transition-colors cursor-pointer">
+          <button className="inline-flex items-center gap-2 rounded-lg border border-border px-3 py-2.5 text-sm text-text-secondary hover:bg-surface-secondary hover:border-gray-300 transition-all duration-200 cursor-pointer">
             <BarChart3 className="h-4 w-4" />
             Health Index: All
           </button>
-          <button className="text-sm font-medium text-primary-600 hover:text-primary-700 transition-colors cursor-pointer">
+          <button className="text-sm font-semibold text-primary-600 hover:text-primary-700 transition-colors cursor-pointer">
             Clear
           </button>
-        </div>
-      </Card>
+          </div>
+        </Card>
+      </AnimateIn>
 
       {/* Table */}
-      <Card padding="none" className="mb-6 overflow-hidden">
+      <AnimateIn>
+        <Card padding="none" className="mb-6 overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
@@ -131,7 +136,7 @@ export default function HistoryPage() {
                 return (
                   <tr
                     key={scan.id}
-                    className="border-b border-border-light hover:bg-surface-secondary/50 transition-colors"
+                    className="border-b border-border-light hover:bg-primary-50/30 transition-colors duration-200"
                   >
                     <td className="px-6 py-4">
                       <p className="font-semibold text-text-primary">{scan.date}</p>
@@ -223,36 +228,40 @@ export default function HistoryPage() {
             </button>
           </div>
         </div>
-      </Card>
+        </Card>
+      </AnimateIn>
 
       {/* Stats Footer */}
-      <div className="grid gap-4 sm:grid-cols-4">
-        <Card className="flex items-center gap-4">
-          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-50 text-blue-600">
+      <StaggerContainer className="grid gap-4 sm:grid-cols-4" staggerAmount={0.08}>
+        <StaggerItem>
+        <Card hover className="flex items-center gap-4">
+          <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-blue-50 text-blue-600 shadow-sm">
             <BarChart3 className="h-5 w-5" />
           </div>
           <div>
             <p className="text-xs font-bold uppercase tracking-wider text-text-muted">
               Total Scans
             </p>
-            <p className="text-2xl font-bold text-text-primary">
+            <p className="text-2xl font-extrabold text-text-primary tabular-nums">
               {historyStats.totalScans}
             </p>
-            <p className="text-xs text-primary-600 font-medium">
+            <p className="text-xs text-primary-600 font-semibold">
               {historyStats.scansTrend}
             </p>
           </div>
         </Card>
+        </StaggerItem>
 
-        <Card className="flex items-center gap-4">
-          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-amber-50 text-amber-600">
+        <StaggerItem>
+        <Card hover className="flex items-center gap-4">
+          <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-amber-50 text-amber-600 shadow-sm">
             <AlertTriangle className="h-5 w-5" />
           </div>
           <div>
             <p className="text-xs font-bold uppercase tracking-wider text-text-muted">
               Active Alerts
             </p>
-            <p className="text-2xl font-bold text-text-primary">
+            <p className="text-2xl font-extrabold text-text-primary tabular-nums">
               {historyStats.activeAlerts}
             </p>
             <p className="text-xs text-text-muted">
@@ -260,16 +269,18 @@ export default function HistoryPage() {
             </p>
           </div>
         </Card>
+        </StaggerItem>
 
-        <Card className="flex items-center gap-4">
-          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-green-50 text-green-600">
+        <StaggerItem>
+        <Card hover className="flex items-center gap-4">
+          <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-green-50 text-green-600 shadow-sm">
             <TrendingUp className="h-5 w-5" />
           </div>
           <div>
             <p className="text-xs font-bold uppercase tracking-wider text-text-muted">
               Avg Health Index
             </p>
-            <p className="text-2xl font-bold text-text-primary">
+            <p className="text-2xl font-extrabold text-text-primary tabular-nums">
               {historyStats.avgHealthIndex}%
             </p>
             <p className="text-xs text-text-muted">
@@ -277,16 +288,18 @@ export default function HistoryPage() {
             </p>
           </div>
         </Card>
+        </StaggerItem>
 
-        <Card className="flex items-center gap-4">
-          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-purple-50 text-purple-600">
+        <StaggerItem>
+        <Card hover className="flex items-center gap-4">
+          <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-purple-50 text-purple-600 shadow-sm">
             <FileText className="h-5 w-5" />
           </div>
           <div>
             <p className="text-xs font-bold uppercase tracking-wider text-text-muted">
               Generated Reports
             </p>
-            <p className="text-2xl font-bold text-text-primary">
+            <p className="text-2xl font-extrabold text-text-primary tabular-nums">
               {historyStats.generatedReports.toLocaleString()}
             </p>
             <p className="text-xs text-text-muted">
@@ -294,7 +307,8 @@ export default function HistoryPage() {
             </p>
           </div>
         </Card>
-      </div>
-    </div>
+        </StaggerItem>
+      </StaggerContainer>
+    </PageTransition>
   );
 }

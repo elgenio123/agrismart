@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { PageTransition, StaggerContainer, StaggerItem, AnimateIn } from "@/components/ui/motion";
 import { scans, historyStats } from "@/lib/mock-data";
 import {
   FileText,
@@ -18,11 +19,11 @@ import {
 
 export default function ReportsPage() {
   return (
-    <div>
+    <PageTransition>
       {/* Header */}
       <div className="flex items-start justify-between mb-6">
         <div>
-          <h1 className="text-2xl font-bold text-text-primary">Reports</h1>
+          <h1 className="text-2xl font-extrabold text-text-primary tracking-tight">Reports</h1>
           <p className="mt-1 text-text-secondary">
             View and download generated field analysis reports.
           </p>
@@ -40,47 +41,54 @@ export default function ReportsPage() {
       </div>
 
       {/* Stats row */}
-      <div className="grid gap-4 sm:grid-cols-3 mb-6">
-        <Card className="flex items-center gap-4">
-          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-50 text-blue-600">
+      <StaggerContainer className="grid gap-4 sm:grid-cols-3 mb-6" staggerAmount={0.08}>
+        <StaggerItem>
+        <Card hover className="flex items-center gap-4">
+          <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-blue-50 text-blue-600 shadow-sm">
             <FileText className="h-5 w-5" />
           </div>
           <div>
             <p className="text-xs text-text-muted font-medium">Total Reports</p>
-            <p className="text-2xl font-bold text-text-primary">
+            <p className="text-2xl font-extrabold text-text-primary tabular-nums">
               {historyStats.generatedReports.toLocaleString()}
             </p>
           </div>
         </Card>
-        <Card className="flex items-center gap-4">
-          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-green-50 text-green-600">
+        </StaggerItem>
+        <StaggerItem>
+        <Card hover className="flex items-center gap-4">
+          <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-green-50 text-green-600 shadow-sm">
             <TrendingUp className="h-5 w-5" />
           </div>
           <div>
             <p className="text-xs text-text-muted font-medium">Avg Health Score</p>
-            <p className="text-2xl font-bold text-text-primary">
+            <p className="text-2xl font-extrabold text-text-primary tabular-nums">
               {historyStats.avgHealthIndex}%
             </p>
           </div>
         </Card>
-        <Card className="flex items-center gap-4">
-          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-purple-50 text-purple-600">
+        </StaggerItem>
+        <StaggerItem>
+        <Card hover className="flex items-center gap-4">
+          <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-purple-50 text-purple-600 shadow-sm">
             <BarChart3 className="h-5 w-5" />
           </div>
           <div>
             <p className="text-xs text-text-muted font-medium">Scans Analyzed</p>
-            <p className="text-2xl font-bold text-text-primary">
+            <p className="text-2xl font-extrabold text-text-primary tabular-nums">
               {historyStats.totalScans}
             </p>
           </div>
         </Card>
-      </div>
+        </StaggerItem>
+      </StaggerContainer>
 
       {/* Reports list */}
-      <div className="space-y-3">
+      <AnimateIn>
+        <div className="space-y-3">
         {scans.map((scan) => (
-          <Card key={scan.id} className="flex items-center gap-4 hover:shadow-md transition-shadow">
-            <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-surface-secondary shrink-0">
+          <Card key={scan.id} hover className="flex items-center gap-4">
+            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-surface-secondary shrink-0">
               <FileText className="h-6 w-6 text-text-muted" />
             </div>
             <div className="flex-1 min-w-0">
@@ -118,6 +126,7 @@ export default function ReportsPage() {
           </Card>
         ))}
       </div>
-    </div>
+      </AnimateIn>
+    </PageTransition>
   );
 }

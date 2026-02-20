@@ -6,6 +6,7 @@ import { Logo } from "@/components/ui/logo";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { RotateCcw } from "lucide-react";
+import { motion } from "framer-motion";
 
 export default function ForgotPasswordPage() {
   const [email, setEmail] = useState("");
@@ -20,17 +21,27 @@ export default function ForgotPasswordPage() {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-primary-50/30 to-white px-4">
       {/* Logo */}
-      <div className="mb-8 text-center">
+      <motion.div
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4 }}
+        className="mb-8 text-center"
+      >
         <div className="flex justify-center mb-3">
           <Logo size="lg" />
         </div>
         <p className="text-sm text-text-secondary">
           Precision Agriculture Powered by AI
         </p>
-      </div>
+      </motion.div>
 
       {/* Card */}
-      <div className="w-full max-w-md overflow-hidden rounded-2xl bg-white shadow-lg border border-border">
+      <motion.div
+        initial={{ opacity: 0, y: 20, scale: 0.97 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ duration: 0.5, delay: 0.15 }}
+        className="w-full max-w-md overflow-hidden rounded-2xl bg-white shadow-xl shadow-gray-200/50 border border-border ring-1 ring-black/[0.03]"
+      >
         {/* Green header */}
         <div className="flex items-center justify-center bg-gradient-to-r from-primary-50 to-primary-100 py-6">
           <div className="flex h-14 w-14 items-center justify-center rounded-full bg-white shadow-sm">
@@ -88,7 +99,7 @@ export default function ForgotPasswordPage() {
             </Link>
           </div>
         </div>
-      </div>
+      </motion.div>
 
       {/* Footer help */}
       <p className="mt-8 text-xs text-text-muted">

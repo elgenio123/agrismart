@@ -6,6 +6,7 @@ import { Logo } from "@/components/ui/logo";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { RotateCcw, Check } from "lucide-react";
+import { motion } from "framer-motion";
 
 function getPasswordStrength(password: string) {
   const checks = {
@@ -45,8 +46,13 @@ export default function ResetPasswordPage() {
 
       {/* Form */}
       <div className="flex items-center justify-center px-4 py-16">
-        <div className="w-full max-w-lg rounded-2xl border border-border bg-white p-8 shadow-sm">
-          <h1 className="text-2xl font-bold text-text-primary">
+        <motion.div
+          initial={{ opacity: 0, y: 20, scale: 0.97 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="w-full max-w-lg rounded-2xl border border-border bg-white p-8 shadow-xl shadow-gray-200/50 ring-1 ring-black/[0.03]"
+        >
+          <h1 className="text-2xl font-extrabold text-text-primary tracking-tight">
             Create New Password
           </h1>
           <p className="mt-2 text-sm text-text-secondary">
@@ -153,7 +159,7 @@ export default function ResetPasswordPage() {
               ← Back to Sign In
             </Link>
           </div>
-        </div>
+        </motion.div>
       </div>
 
       {/* Footer */}
@@ -165,7 +171,7 @@ export default function ResetPasswordPage() {
           <span>•</span>
           <a href="#" className="hover:text-text-primary transition-colors">Security</a>
         </div>
-        <p className="mt-2 text-xs text-text-muted">© 2024 AgriScan AI. All rights reserved.</p>
+        <p className="mt-2 text-xs text-text-muted">© 2026 AgriScan AI. All rights reserved.</p>
       </footer>
     </div>
   );

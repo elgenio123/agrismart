@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { PageTransition, AnimateIn } from "@/components/ui/motion";
 import { analysisResult } from "@/lib/mock-data";
 import {
   Download,
@@ -37,7 +38,7 @@ export default function FieldsPage() {
   const a = analysisResult;
 
   return (
-    <div>
+    <PageTransition>
       {/* Breadcrumb */}
       <div className="mb-2 text-sm text-text-muted">
         <Link href="/history" className="hover:text-text-primary transition-colors">
@@ -51,7 +52,7 @@ export default function FieldsPage() {
       <div className="flex items-start justify-between mb-6">
         <div>
           <div className="flex items-center gap-3">
-            <h1 className="text-2xl font-bold text-text-primary">
+            <h1 className="text-2xl font-extrabold text-text-primary tracking-tight">
               Analysis: {a.flightName}
             </h1>
             <Badge
@@ -78,6 +79,7 @@ export default function FieldsPage() {
       <div className="grid gap-6 lg:grid-cols-5">
         {/* ─── Map Area (3/5) ─── */}
         <div className="lg:col-span-3">
+          <AnimateIn>
           <Card padding="none" className="overflow-hidden">
             {/* Map placeholder */}
             <div className="relative h-[500px] bg-gradient-to-br from-green-100 via-green-50 to-stone-100">
@@ -116,46 +118,48 @@ export default function FieldsPage() {
 
               {/* Map controls */}
               <div className="absolute right-4 top-4 flex flex-col gap-2">
-                <button className="flex h-8 w-8 items-center justify-center rounded-lg bg-white shadow-md hover:bg-surface-secondary transition-colors cursor-pointer">
+                <button className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/90 backdrop-blur shadow-md hover:bg-white hover:scale-105 transition-all cursor-pointer">
                   <ZoomIn className="h-4 w-4 text-text-secondary" />
                 </button>
-                <button className="flex h-8 w-8 items-center justify-center rounded-lg bg-white shadow-md hover:bg-surface-secondary transition-colors cursor-pointer">
+                <button className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/90 backdrop-blur shadow-md hover:bg-white hover:scale-105 transition-all cursor-pointer">
                   <ZoomOut className="h-4 w-4 text-text-secondary" />
                 </button>
-                <button className="flex h-8 w-8 items-center justify-center rounded-lg bg-white shadow-md hover:bg-surface-secondary transition-colors cursor-pointer">
+                <button className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/90 backdrop-blur shadow-md hover:bg-white hover:scale-105 transition-all cursor-pointer">
                   <Maximize className="h-4 w-4 text-text-secondary" />
                 </button>
               </div>
 
               <div className="absolute right-4 bottom-20 flex flex-col gap-2">
-                <button className="flex h-8 w-8 items-center justify-center rounded-lg bg-white shadow-md hover:bg-surface-secondary transition-colors cursor-pointer">
+                <button className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/90 backdrop-blur shadow-md hover:bg-white hover:scale-105 transition-all cursor-pointer">
                   <Layers className="h-4 w-4 text-text-secondary" />
                 </button>
-                <button className="flex h-8 w-8 items-center justify-center rounded-lg bg-white shadow-md hover:bg-surface-secondary transition-colors cursor-pointer">
+                <button className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/90 backdrop-blur shadow-md hover:bg-white hover:scale-105 transition-all cursor-pointer">
                   <MapPin className="h-4 w-4 text-text-secondary" />
                 </button>
               </div>
 
               {/* Coordinates bar */}
               {a.coordinates && (
-                <div className="absolute bottom-0 left-0 right-0 bg-sidebar/80 backdrop-blur text-white px-4 py-2 text-xs font-mono">
+                <div className="absolute bottom-0 left-0 right-0 bg-sidebar/80 backdrop-blur-sm text-white px-4 py-2 text-xs font-mono">
                   LAT: {a.coordinates.lat} | LON: {a.coordinates.lng} | ALT: {a.coordinates.alt}
                 </div>
               )}
             </div>
           </Card>
+          </AnimateIn>
         </div>
 
         {/* ─── Analysis Panel (2/5) ─── */}
         <div className="lg:col-span-2 space-y-4">
           {/* Confidence Score */}
+          <AnimateIn delay={0.1}>
           <Card>
             <h3 className="text-xs font-bold uppercase tracking-wider text-primary-600 mb-4">
               AI Analysis Results
             </h3>
             <div className="flex items-center gap-4 mb-4">
               <div>
-                <p className="text-3xl font-bold text-text-primary">
+                <p className="text-3xl font-extrabold text-text-primary tabular-nums">
                   {a.confidence}%
                 </p>
                 <p className="text-sm text-text-muted">Confidence Score</p>
@@ -202,8 +206,10 @@ export default function FieldsPage() {
               </div>
             </div>
           </Card>
+          </AnimateIn>
 
           {/* Detected Issues */}
+          <AnimateIn delay={0.2}>
           <Card>
             <div className="flex items-center justify-between mb-4">
               <h3 className="font-bold text-text-primary">
@@ -248,11 +254,13 @@ export default function FieldsPage() {
               })}
             </div>
           </Card>
+          </AnimateIn>
 
           {/* Upload Drop */}
-          <Card className="text-center border-dashed">
+          <AnimateIn delay={0.3}>
+          <Card className="text-center border-dashed hover:border-primary-300 hover:bg-primary-50/30 transition-all duration-300 cursor-pointer group">
             <div className="py-4">
-              <Upload className="mx-auto h-8 w-8 text-text-muted mb-2" />
+              <Upload className="mx-auto h-8 w-8 text-text-muted mb-2 group-hover:text-primary-500 transition-colors" />
               <p className="font-semibold text-sm text-text-primary">
                 Upload New Scan
               </p>
@@ -261,8 +269,9 @@ export default function FieldsPage() {
               </p>
             </div>
           </Card>
+          </AnimateIn>
         </div>
       </div>
-    </div>
+    </PageTransition>
   );
 }

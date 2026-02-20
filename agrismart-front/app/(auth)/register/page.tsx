@@ -5,7 +5,8 @@ import Link from "next/link";
 import { Logo } from "@/components/ui/logo";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Github } from "lucide-react";
+import { Github, Sparkles } from "lucide-react";
+import { motion } from "framer-motion";
 
 function getPasswordStrength(password: string) {
   let score = 0;
@@ -51,23 +52,35 @@ export default function RegisterPage() {
   return (
     <div className="flex min-h-screen">
       {/* ─── Left: Hero Panel ─── */}
-      <div className="relative hidden w-1/2 lg:flex flex-col justify-between bg-gradient-to-b from-gray-800 to-gray-900 p-10">
-        <div className="absolute inset-0 bg-[url('/auth-bg.jpg')] bg-cover bg-center opacity-50" />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/40 to-black/70" />
+      <div className="relative hidden w-1/2 lg:flex flex-col justify-between bg-gradient-to-b from-gray-800 to-gray-900 p-10 overflow-hidden">
+        <img
+          src="https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=1200&q=70&auto=format&fit=crop"
+          alt="Golden wheat field at sunset"
+          className="absolute inset-0 w-full h-full object-cover opacity-40"
+          loading="eager"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/50 to-black/70" />
 
-        <div className="relative z-10">
+        {/* Decorative grid */}
+        <div className="absolute inset-0 opacity-10" style={{
+          backgroundImage: `linear-gradient(rgba(255,255,255,.08) 1px, transparent 1px), 
+                            linear-gradient(90deg, rgba(255,255,255,.08) 1px, transparent 1px)`,
+          backgroundSize: "60px 60px"
+        }} />
+
+        <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="relative z-10">
           <Logo variant="light" size="md" />
-        </div>
-        <div className="relative z-10 max-w-md">
-          <h2 className="text-3xl font-bold italic text-white leading-snug">
+        </motion.div>
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }} className="relative z-10 max-w-md">
+          <h2 className="text-3xl font-extrabold italic text-white leading-snug">
             Cultivating the Future of Farming
           </h2>
-          <p className="mt-4 text-gray-300 leading-relaxed">
+          <p className="mt-4 text-gray-300 leading-relaxed text-lg">
             Harness the power of artificial intelligence to maximize your
             harvest and minimize environmental impact.
           </p>
-        </div>
-        <div className="relative z-10">
+        </motion.div>
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }} className="relative z-10">
           <div className="inline-flex items-center gap-3 rounded-full bg-black/40 px-4 py-2 backdrop-blur">
             <div className="flex -space-x-2">
               {[1, 2, 3].map((i) => (
@@ -81,7 +94,7 @@ export default function RegisterPage() {
               Trusted by 2,000+ modern farmers
             </span>
           </div>
-        </div>
+        </motion.div>
       </div>
 
       {/* ─── Right: Register Form ─── */}
@@ -97,8 +110,17 @@ export default function RegisterPage() {
         </div>
 
         <div className="flex flex-1 items-center justify-center px-6 pb-12">
-          <div className="w-full max-w-md">
-            <h1 className="text-3xl font-bold text-text-primary">
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="w-full max-w-md"
+          >
+            <div className="inline-flex items-center gap-2 rounded-full bg-primary-50 px-3 py-1 text-xs font-semibold text-primary-600 mb-5 ring-1 ring-primary-100">
+              <Sparkles className="h-3 w-3" />
+              Create Account
+            </div>
+            <h1 className="text-3xl font-extrabold text-text-primary tracking-tight">
               Join AgriScan AI
             </h1>
             <p className="mt-2 text-text-secondary">
@@ -216,10 +238,10 @@ export default function RegisterPage() {
             </div>
 
             <p className="mt-8 text-center text-xs text-text-muted">
-              © 2024 AgriScan AI Inc. Precision farming for a sustainable
+              © 2026 AgriScan AI Inc. Precision farming for a sustainable
               planet.
             </p>
-          </div>
+          </motion.div>
         </div>
       </div>
     </div>
