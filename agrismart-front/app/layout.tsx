@@ -13,9 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "AgriScan AI — Precision Agriculture Powered by AI",
+  title: "Agrsmart — Operations Dashboard",
   description:
-    "AI-powered crop disease detection platform. Drone images analyzed by trained AI models for farmers, agronomists, and plantation managers.",
+    "Internal operations control panel for drone-based AI banana disease scanning.",
 };
 
 export default function RootLayout({

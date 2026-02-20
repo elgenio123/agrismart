@@ -1,161 +1,160 @@
-// ─── User ────────────────────────────────────────────────
+// ─── Roles ───────────────────────────────────────────────
+export type UserRole = "admin" | "operations_manager" | "drone_operator" | "agronomist";
+
 export interface User {
   id: string;
   name: string;
   email: string;
   phone?: string;
-  role: "farmer" | "agronomist" | "manager" | "admin";
-  plan: "free" | "premium" | "enterprise";
+  role: UserRole;
   avatarUrl?: string;
-  language?: string;
 }
 
-// ─── Scan ────────────────────────────────────────────────
-export type ScanStatus = "healthy" | "warning" | "critical";
-export type ProcessingStatus = "processed" | "processing" | "pending" | "failed";
+// ─── Request Pipeline ────────────────────────────────────
+export type RequestStatus =
+  | "pending_approval"
+  | "approved"
+  | "scheduled"
+  | "in_progress"
+  | "awaiting_analysis"
+  | "analysis_complete"
+  | "validation_required"
+  | "completed"
+  | "rejected";
 
-export interface Scan {
-  id: string;
-  date: string;
-  time: string;
-  fieldName: string;
-  fieldId: string;
-  crop: string;
-  healthIndex: number;
-  status: ScanStatus;
-  imageUrl?: string;
-  scanType?: "HD CAPTURE" | "NDVI INDEX" | "THERMAL";
-}
+export type PaymentStatus = "paid" | "pending" | "failed" | "refunded";
 
-// ─── Field ───────────────────────────────────────────────
-export interface Field {
+export interface ScanRequest {
   id: string;
-  name: string;
-  location: string;
+  farmerId: string;
+  farmerName: string;
+  farmerPhone: string;
+  farmName: string;
+  location: {
+    region: string;
+    coordinates: { lat: number; lng: number };
+    address: string;
+  };
+  hectares: number;
   cropType: string;
-  status: ScanStatus;
-  area?: number;
-  zones?: Zone[];
+  requestDate: string;
+  scheduledDate?: string;
+  completedDate?: string;
+  status: RequestStatus;
+  paymentStatus: PaymentStatus;
+  paymentAmount: number;
+  assignedOperator?: string;
+  assignedAgronomist?: string;
+  priority: "normal" | "high" | "urgent";
+  notes?: string;
+  droneImages?: number;
+  analysisProgress?: number;
+  detections?: Detection[];
+  reportUrl?: string;
 }
 
-export interface Zone {
-  id: string;
-  name: string;
-  color: "green" | "orange" | "red";
-  bounds?: { lat: number; lng: number }[];
-}
+// ─── Detection / AI Results ─────────────────────────────
+export type DiseaseSeverity = "low" | "moderate" | "high" | "critical";
+export type DiseaseCategory = "fungal" | "bacterial" | "viral" | "nutrient" | "pest" | "physical";
 
-// ─── Detection / Issue ───────────────────────────────────
-export type IssueSeverity = "low" | "moderate" | "high" | "critical";
-export type IssueCategory = "fungal" | "bacterial" | "nutrient" | "physical" | "pest";
-
-export interface DetectedIssue {
-  id: string;
-  name: string;
-  category: IssueCategory;
-  severity: IssueSeverity;
-  description: string;
-  confidence: number;
-  location?: string;
-}
-
-export interface DetectionResult {
+export interface Detection {
   id: string;
   diseaseName: string;
-  crop: string;
-  sector: string;
-  scannedDate: string;
+  category: DiseaseCategory;
+  severity: DiseaseSeverity;
   confidence: number;
-  severityLevel: IssueSeverity;
-  clinicalSummary: string;
-  imageUrl: string;
-  suggestedActions: SuggestedAction[];
-  issues: DetectedIssue[];
-}
-
-export interface SuggestedAction {
-  id: number;
-  title: string;
+  affectedArea: number;
   description: string;
-  priority: "urgent" | "recommended" | "optional";
+  treatment: string;
 }
 
-// ─── Analysis ────────────────────────────────────────────
-export interface AnalysisResult {
+// ─── Scheduling ──────────────────────────────────────────
+export interface ScheduleEvent {
   id: string;
-  flightName: string;
-  fieldPath: string;
-  processingStatus: ProcessingStatus;
-  confidence: number;
-  scanDate: string;
-  flightDuration: string;
-  totalArea: number;
-  issues: DetectedIssue[];
-  coordinates?: { lat: string; lng: string; alt: string };
-}
-
-// ─── Specialist ──────────────────────────────────────────
-export interface Specialist {
-  id: string;
-  name: string;
-  title: string;
-  avatarUrl?: string;
-  tags: string[];
-}
-
-// ─── Chat ────────────────────────────────────────────────
-export type MessageSender = "user" | "ai";
-
-export interface ChatMessage {
-  id: string;
-  sender: MessageSender;
-  content: string;
-  timestamp: string;
-  healthMetrics?: HealthMetrics;
-  hasFollowUp?: boolean;
-  followUpText?: string;
-}
-
-export interface HealthMetrics {
-  sectorName: string;
-  period: string;
-  bars: { value: number; color: "green" | "red" }[];
-  avgNdvi: number;
-  ndviChange: number;
-  soilMoisture: number;
-  moistureStatus: "Low" | "Normal" | "High";
-}
-
-// ─── Alert ───────────────────────────────────────────────
-export interface Alert {
-  id: string;
-  title: string;
-  location: string;
-  icon: string;
-  actionLabel: string;
-}
-
-// ─── Weather ─────────────────────────────────────────────
-export interface Weather {
-  temperature: number;
-  windSpeed: number;
-  humidity: number;
-  visibility: string;
-  flightReady: boolean;
-  forecast: { day: string; icon: string; tempHigh: number }[];
-}
-
-// ─── Settings ────────────────────────────────────────────
-export interface NotificationSettings {
-  email: boolean;
-  sms: boolean;
-  push: boolean;
-}
-
-export interface ManagedField {
-  id: string;
-  name: string;
-  location: string;
+  requestId: string;
+  farmerName: string;
+  farmName: string;
+  date: string;
+  time: string;
+  operatorId: string;
+  operatorName: string;
+  hectares: number;
   cropType: string;
-  status: ScanStatus;
+  region: string;
+  status: "scheduled" | "in_progress" | "completed" | "cancelled";
+}
+
+// ─── Drone Operators ─────────────────────────────────────
+export interface DroneOperator {
+  id: string;
+  name: string;
+  phone: string;
+  region: string;
+  status: "available" | "on_mission" | "off_duty";
+  completedMissions: number;
+  rating: number;
+}
+
+// ─── Agronomists ─────────────────────────────────────────
+export interface Agronomist {
+  id: string;
+  name: string;
+  specialization: string;
+  validationsCompleted: number;
+}
+
+// ─── Analytics ───────────────────────────────────────────
+export interface MonthlyRevenue {
+  month: string;
+  revenue: number;
+  scans: number;
+}
+
+export interface DiseaseFrequency {
+  disease: string;
+  count: number;
+  percentage: number;
+}
+
+export interface RegionActivity {
+  region: string;
+  scans: number;
+  revenue: number;
+}
+
+// ─── Activity Feed ───────────────────────────────────────
+export interface ActivityItem {
+  id: string;
+  type: "request" | "approval" | "schedule" | "scan" | "analysis" | "validation" | "completion" | "payment";
+  message: string;
+  timestamp: string;
+  requestId?: string;
+  user?: string;
+}
+
+// ─── Dashboard Stats ─────────────────────────────────────
+export interface DashboardStats {
+  totalRequests: number;
+  pendingApprovals: number;
+  scheduledScans: number;
+  completedScans: number;
+  monthlyRevenue: number;
+  revenueChange: number;
+  activeOperators: number;
+  avgProcessingTime: string;
+}
+
+// ─── Report ──────────────────────────────────────────────
+export interface Report {
+  id: string;
+  requestId: string;
+  farmerName: string;
+  farmName: string;
+  cropType: string;
+  region: string;
+  completedDate: string;
+  hectares: number;
+  detectionsCount: number;
+  overallHealth: "healthy" | "warning" | "critical";
+  sentToFarmer: boolean;
 }

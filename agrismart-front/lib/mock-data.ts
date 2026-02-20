@@ -1,303 +1,369 @@
 import type {
+  ScanRequest,
+  DroneOperator,
+  Agronomist,
+  DashboardStats,
+  ActivityItem,
+  MonthlyRevenue,
+  DiseaseFrequency,
+  RegionActivity,
+  ScheduleEvent,
+  Report,
+  Detection,
   User,
-  Scan,
-  DetectionResult,
-  AnalysisResult,
-  Specialist,
-  ChatMessage,
-  Alert,
-  Weather,
-  ManagedField,
 } from "./types";
 
 // ─── Current User ────────────────────────────────────────
 export const currentUser: User = {
-  id: "usr-001",
-  name: "John Miller",
-  email: "john.harrison@agritech.com",
-  phone: "+1 (555) 012-3456",
-  role: "agronomist",
-  plan: "premium",
-  avatarUrl: "/avatars/user.jpg",
-  language: "English (US)",
-};
-
-// ─── Scans ───────────────────────────────────────────────
-export const scans: Scan[] = [
-  {
-    id: "SCN-48291",
-    date: "Oct 24, 2023",
-    time: "09:14 AM",
-    fieldName: "North Valley A-12",
-    fieldId: "field-001",
-    crop: "Corn",
-    healthIndex: 94,
-    status: "healthy",
-    imageUrl: "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=400&q=70&auto=format&fit=crop",
-    scanType: "HD CAPTURE",
-  },
-  {
-    id: "SCN-48285",
-    date: "Oct 22, 2023",
-    time: "02:30 PM",
-    fieldName: "East Plateau Plot 3",
-    fieldId: "field-002",
-    crop: "Soybeans",
-    healthIndex: 72,
-    status: "warning",
-    imageUrl: "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=400&q=70&auto=format&fit=crop",
-    scanType: "NDVI INDEX",
-  },
-  {
-    id: "SCN-48277",
-    date: "Oct 20, 2023",
-    time: "11:05 AM",
-    fieldName: "South Creek Basin",
-    fieldId: "field-003",
-    crop: "Wheat",
-    healthIndex: 89,
-    status: "healthy",
-    imageUrl: "https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=400&q=70&auto=format&fit=crop",
-    scanType: "THERMAL",
-  },
-  {
-    id: "SCN-48261",
-    date: "Oct 18, 2023",
-    time: "08:45 AM",
-    fieldName: "West Ridge Slope",
-    fieldId: "field-004",
-    crop: "Corn",
-    healthIndex: 42,
-    status: "critical",
-  },
-  {
-    id: "SCN-48255",
-    date: "Oct 15, 2023",
-    time: "10:12 AM",
-    fieldName: "North Valley B-04",
-    fieldId: "field-005",
-    crop: "Corn",
-    healthIndex: 88,
-    status: "healthy",
-  },
-];
-
-// ─── Detection Result ────────────────────────────────────
-export const detectionResult: DetectionResult = {
-  id: "det-001",
-  diseaseName: "Bacterial Leaf Spot",
-  crop: "Tomato Crop",
-  sector: "Sector 7G",
-  scannedDate: "Oct 24, 2023",
-  confidence: 98.4,
-  severityLevel: "high",
-  clinicalSummary:
-    "Visual markers indicate progressive chlorosis and necrotic lesions in Sector 7G. Patterns suggest Xanthomonas campestris pathology. Recent high humidity (84% avg) has accelerated the spread. Immediate intervention recommended to prevent systemic plot contamination.",
-  imageUrl: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=600&q=70&auto=format&fit=crop",
-  suggestedActions: [
-    {
-      id: 1,
-      title: "Immediate Isolation of Sector 7G",
-      description:
-        "Limit personnel movement through the infected area to prevent mechanical transmission via clothing or tools.",
-      priority: "urgent",
-    },
-    {
-      id: 2,
-      title: "Copper-Based Fungicide Application",
-      description:
-        "Apply a preventative copper spray across adjacent healthy sectors (Sector 7F and 7H) to create a bio-barrier.",
-      priority: "recommended",
-    },
-  ],
-  issues: [],
-};
-
-// ─── Analysis Result ─────────────────────────────────────
-export const analysisResult: AnalysisResult = {
-  id: "analysis-001",
-  flightName: "Flight_2023_10_24",
-  fieldPath: "Fields > North Wheat Field - Section B",
-  processingStatus: "processed",
-  confidence: 94.2,
-  scanDate: "Oct 24, 2023",
-  flightDuration: "18 min 42s",
-  totalArea: 12.4,
-  coordinates: { lat: "38.1294° N", lng: "98.5412° W", alt: "45m" },
-  issues: [
-    {
-      id: "DZ-4012",
-      name: "Yellow Rust",
-      category: "fungal",
-      severity: "moderate",
-      description:
-        "Detected in Section B-4. Early signs of fungal infection. Requires localized treatment.",
-      confidence: 91,
-      location: "Section B-4",
-    },
-    {
-      id: "DZ-4015",
-      name: "N-Deficiency",
-      category: "nutrient",
-      severity: "low",
-      description:
-        "Lower nitrogen levels detected in Zone A-1. Growth rate slightly below average.",
-      confidence: 98,
-      location: "Zone A-1",
-    },
-    {
-      id: "DZ-4018",
-      name: "Irrigation Gap",
-      category: "physical",
-      severity: "low",
-      description:
-        "Dry patch detected in Zone C-2. Check sprinkler head #12.",
-      confidence: 94,
-      location: "Zone C-2",
-    },
-  ],
-};
-
-// ─── Specialists ─────────────────────────────────────────
-export const specialists: Specialist[] = [
-  {
-    id: "spec-001",
-    name: "Dr. Aris Thorne",
-    title: "Soil Scientist",
-    avatarUrl: "/avatars/specialist-1.jpg",
-    tags: ["Nitrogen", "PH Balancing"],
-  },
-  {
-    id: "spec-002",
-    name: "Sarah Jenks",
-    title: "Crop Pathologist",
-    avatarUrl: "/avatars/specialist-2.jpg",
-    tags: ["Fungal Experts", "Pest Control"],
-  },
-];
-
-// ─── Chat Messages ───────────────────────────────────────
-export const chatMessages: ChatMessage[] = [
-  {
-    id: "msg-001",
-    sender: "ai",
-    content:
-      "Hello Julian! I'm your Specialist AI. I have access to your field data, drone telemetry, and soil sensor logs. How can I assist with your field analysis today?",
-    timestamp: "10:00 AM",
-  },
-  {
-    id: "msg-002",
-    sender: "user",
-    content:
-      "Can you analyze the health of Sector B4? The last drone scan showed some yellowing in the corn canopy.",
-    timestamp: "10:02 AM",
-  },
-  {
-    id: "msg-003",
-    sender: "ai",
-    content:
-      "Analyzing Sector B4 (Corn)... I've cross-referenced the latest Multispectral Drone Scan from 06:00 AM today with soil moisture sensors.\n\nI've detected a **12% decrease** in NDVI values over the last 48 hours. This suggests potential nitrogen deficiency or localized moisture stress in the upper quadrant.",
-    timestamp: "10:03 AM",
-    healthMetrics: {
-      sectorName: "SECTOR B4",
-      period: "Last 7 Days",
-      bars: [
-        { value: 70, color: "green" },
-        { value: 65, color: "green" },
-        { value: 68, color: "green" },
-        { value: 60, color: "green" },
-        { value: 80, color: "green" },
-        { value: 40, color: "red" },
-        { value: 35, color: "red" },
-      ],
-      avgNdvi: 0.62,
-      ndviChange: -0.08,
-      soilMoisture: 18,
-      moistureStatus: "Low",
-    },
-    hasFollowUp: true,
-    followUpText:
-      "Would you like me to schedule a localized irrigation pulse or connect you with a Soil Scientist to review the nitrogen levels?",
-  },
-];
-
-// ─── Alerts ──────────────────────────────────────────────
-export const alerts: Alert[] = [
-  {
-    id: "alert-001",
-    title: "Rust Fungus Detected",
-    location: "East Parcel • Sector 02",
-    icon: "bug",
-    actionLabel: "Apply Treatment",
-  },
-  {
-    id: "alert-002",
-    title: "Low Irrigation Level",
-    location: "North Ridge • Zone A",
-    icon: "droplet",
-    actionLabel: "Increase Flow",
-  },
-  {
-    id: "alert-003",
-    title: "Frost Warning",
-    location: "Valley Orchard • All Sectors",
-    icon: "thermometer",
-    actionLabel: "Activate Heaters",
-  },
-];
-
-// ─── Weather ─────────────────────────────────────────────
-export const weather: Weather = {
-  temperature: 24,
-  windSpeed: 8,
-  humidity: 42,
-  visibility: "Clear",
-  flightReady: true,
-  forecast: [
-    { day: "TUE", icon: "cloud", tempHigh: 22 },
-    { day: "WED", icon: "sun", tempHigh: 25 },
-    { day: "THU", icon: "cloud-sun", tempHigh: 26 },
-  ],
+  id: "u1",
+  name: "Marie Nguemo",
+  email: "marie@agrsmart.com",
+  phone: "+237 6 99 12 34 56",
+  role: "admin",
 };
 
 // ─── Dashboard Stats ─────────────────────────────────────
-export const dashboardStats = {
-  totalFieldsScanned: 24,
-  fieldsTrend: "+2%",
-  overallCropHealth: 88,
-  healthLabel: "Optimal",
-  healthTrend: "+5%",
-  activeAlerts: 3,
-  alertsLabel: "Priority",
-  alertsTrend: "-1%",
+export const dashboardStats: DashboardStats = {
+  totalRequests: 284,
+  pendingApprovals: 12,
+  scheduledScans: 8,
+  completedScans: 247,
+  monthlyRevenue: 14_250_000,
+  revenueChange: 12.5,
+  activeOperators: 6,
+  avgProcessingTime: "2.4 hrs",
 };
 
-// ─── History Stats ───────────────────────────────────────
-export const historyStats = {
-  totalScans: 124,
-  scansTrend: "↑ 12% from last month",
-  activeAlerts: 8,
-  alertsNote: "Requires attention",
-  avgHealthIndex: 86.4,
-  healthNote: "Stable performance",
-  generatedReports: 1240,
-  reportsNote: "Ready to download",
-};
+// ─── Sample Detections ───────────────────────────────────
+const sampleDetections: Detection[] = [
+  {
+    id: "det-1",
+    diseaseName: "Black Sigatoka",
+    category: "fungal",
+    severity: "high",
+    confidence: 94.2,
+    affectedArea: 18,
+    description: "Mycosphaerella fijiensis detected across the northern section. Dark streaks and necrotic lesions visible on leaf tissue.",
+    treatment: "Apply systemic fungicide (Propiconazole 250 EC) at 0.5L/ha. Remove severely infected leaves. Improve air circulation between plants.",
+  },
+  {
+    id: "det-2",
+    diseaseName: "Banana Bunchy Top Virus",
+    category: "viral",
+    severity: "critical",
+    confidence: 91.5,
+    affectedArea: 12,
+    description: "BBTV symptoms detected — dark green streaks on petioles and midribs, leaves becoming narrow, stiff and erect with chlorotic margins.",
+    treatment: "Immediately uproot and destroy infected plants. Apply insecticide (Imidacloprid 200 SL) to control aphid vectors. Replant with certified virus-free suckers.",
+  },
+  {
+    id: "det-3",
+    diseaseName: "Banana Weevil Damage",
+    category: "pest",
+    severity: "moderate",
+    confidence: 87.1,
+    affectedArea: 25,
+    description: "Cosmopolites sordidus tunneling damage detected in pseudostem bases in western section. Weakened plants showing premature toppling.",
+    treatment: "Apply Beauveria bassiana bio-pesticide at pseudostem base. Set pheromone traps. Practice clean cultivation — remove old crop residues.",
+  },
+];
 
-// ─── Managed Fields ──────────────────────────────────────
-export const managedFields: ManagedField[] = [
+// ─── Scan Requests ───────────────────────────────────────
+export const scanRequests: ScanRequest[] = [
   {
-    id: "mf-001",
-    name: "North Sector 01",
-    location: "Salinas Valley, CA",
-    cropType: "Organic Lettuce",
-    status: "healthy",
+    id: "REQ-001",
+    farmerId: "f1",
+    farmerName: "Jean-Pierre Mbarga",
+    farmerPhone: "+237 6 77 11 22 33",
+    farmName: "Mbarga Banana Plantation",
+    location: { region: "Moungo", coordinates: { lat: 4.7500, lng: 9.6833 }, address: "Njombé, Moungo" },
+    hectares: 45,
+    cropType: "Banana",
+    requestDate: "2026-02-18",
+    status: "pending_approval",
+    paymentStatus: "paid",
+    paymentAmount: 675_000,
+    priority: "normal",
+    notes: "First-time customer. Reported leaf yellowing in east section.",
   },
   {
-    id: "mf-002",
-    name: "East Ridge B",
-    location: "Salinas Valley, CA",
-    cropType: "Baby Spinach",
-    status: "warning",
+    id: "REQ-002",
+    farmerId: "f2",
+    farmerName: "Claudine Ngo Bassa",
+    farmerPhone: "+237 6 55 22 33 44",
+    farmName: "Ngo Bassa Banana Farm",
+    location: { region: "Fako", coordinates: { lat: 4.1597, lng: 9.2400 }, address: "Tiko, Fako" },
+    hectares: 12,
+    cropType: "Banana",
+    requestDate: "2026-02-17",
+    status: "pending_approval",
+    paymentStatus: "paid",
+    paymentAmount: 180_000,
+    priority: "high",
+    notes: "Urgent — visible signs of Black Sigatoka spreading. Premium customer.",
   },
+  {
+    id: "REQ-003",
+    farmerId: "f3",
+    farmerName: "Paul Eyinga",
+    farmerPhone: "+237 6 98 33 44 55",
+    farmName: "Eyinga Plantain Estate",
+    location: { region: "Centre", coordinates: { lat: 3.8667, lng: 11.5167 }, address: "Mbalmayo, Centre" },
+    hectares: 80,
+    cropType: "Banana",
+    requestDate: "2026-02-16",
+    scheduledDate: "2026-02-21",
+    status: "scheduled",
+    paymentStatus: "paid",
+    paymentAmount: 1_200_000,
+    priority: "normal",
+    assignedOperator: "op2",
+  },
+  {
+    id: "REQ-004",
+    farmerId: "f4",
+    farmerName: "Françoise Atangana",
+    farmerPhone: "+237 6 70 44 55 66",
+    farmName: "Atangana Banana Cooperative",
+    location: { region: "Littoral", coordinates: { lat: 4.0511, lng: 9.7679 }, address: "Douala, Littoral" },
+    hectares: 30,
+    cropType: "Banana",
+    requestDate: "2026-02-15",
+    scheduledDate: "2026-02-19",
+    status: "in_progress",
+    paymentStatus: "paid",
+    paymentAmount: 450_000,
+    priority: "normal",
+    assignedOperator: "op1",
+    droneImages: 247,
+  },
+  {
+    id: "REQ-005",
+    farmerId: "f5",
+    farmerName: "David Tchinda",
+    farmerPhone: "+237 6 93 55 66 77",
+    farmName: "Tchinda Banana Farm",
+    location: { region: "Ouest", coordinates: { lat: 5.4764, lng: 10.4218 }, address: "Bafoussam, Ouest" },
+    hectares: 60,
+    cropType: "Banana",
+    requestDate: "2026-02-14",
+    scheduledDate: "2026-02-18",
+    completedDate: "2026-02-18",
+    status: "analysis_complete",
+    paymentStatus: "paid",
+    paymentAmount: 900_000,
+    priority: "normal",
+    assignedOperator: "op3",
+    assignedAgronomist: "agr1",
+    droneImages: 312,
+    analysisProgress: 100,
+    detections: sampleDetections,
+  },
+  {
+    id: "REQ-006",
+    farmerId: "f6",
+    farmerName: "Esther Ngono",
+    farmerPhone: "+237 6 85 66 77 88",
+    farmName: "Ngono Banana Fields",
+    location: { region: "Sud", coordinates: { lat: 2.9333, lng: 9.9000 }, address: "Kribi, Sud" },
+    hectares: 100,
+    cropType: "Banana",
+    requestDate: "2026-02-12",
+    scheduledDate: "2026-02-15",
+    completedDate: "2026-02-16",
+    status: "completed",
+    paymentStatus: "paid",
+    paymentAmount: 1_500_000,
+    priority: "normal",
+    assignedOperator: "op2",
+    assignedAgronomist: "agr2",
+    droneImages: 428,
+    analysisProgress: 100,
+    detections: [sampleDetections[0], sampleDetections[2]],
+    reportUrl: "/reports/REQ-006.pdf",
+  },
+  {
+    id: "REQ-007",
+    farmerId: "f7",
+    farmerName: "Michel Ondoua",
+    farmerPhone: "+237 6 74 77 88 99",
+    farmName: "Ondoua Banana Estate",
+    location: { region: "Est", coordinates: { lat: 4.0383, lng: 13.6844 }, address: "Bertoua, Est" },
+    hectares: 55,
+    cropType: "Banana",
+    requestDate: "2026-02-10",
+    scheduledDate: "2026-02-13",
+    completedDate: "2026-02-14",
+    status: "completed",
+    paymentStatus: "paid",
+    paymentAmount: 825_000,
+    priority: "normal",
+    assignedOperator: "op1",
+    assignedAgronomist: "agr1",
+    droneImages: 289,
+    analysisProgress: 100,
+    detections: [sampleDetections[1]],
+    reportUrl: "/reports/REQ-007.pdf",
+  },
+  {
+    id: "REQ-008",
+    farmerId: "f8",
+    farmerName: "Lucienne Mpoudi",
+    farmerPhone: "+237 6 66 88 99 00",
+    farmName: "Mpoudi Banana Nursery",
+    location: { region: "Sud-Ouest", coordinates: { lat: 4.5949, lng: 9.0999 }, address: "Kumba, Sud-Ouest" },
+    hectares: 20,
+    cropType: "Banana",
+    requestDate: "2026-02-19",
+    status: "pending_approval",
+    paymentStatus: "pending",
+    paymentAmount: 300_000,
+    priority: "normal",
+  },
+  {
+    id: "REQ-009",
+    farmerId: "f9",
+    farmerName: "Samuel Fouda",
+    farmerPhone: "+237 6 82 99 00 11",
+    farmName: "Fouda Banana Farm",
+    location: { region: "Adamaoua", coordinates: { lat: 7.3167, lng: 13.5833 }, address: "Ngaoundéré, Adamaoua" },
+    hectares: 35,
+    cropType: "Banana",
+    requestDate: "2026-02-17",
+    status: "approved",
+    paymentStatus: "paid",
+    paymentAmount: 525_000,
+    priority: "high",
+  },
+  {
+    id: "REQ-010",
+    farmerId: "f10",
+    farmerName: "Brigitte Mvondo",
+    farmerPhone: "+237 6 91 00 11 22",
+    farmName: "Mvondo Banana Plantation",
+    location: { region: "Centre", coordinates: { lat: 3.8480, lng: 11.5021 }, address: "Yaoundé, Centre" },
+    hectares: 8,
+    cropType: "Banana",
+    requestDate: "2026-02-13",
+    scheduledDate: "2026-02-16",
+    completedDate: "2026-02-17",
+    status: "completed",
+    paymentStatus: "paid",
+    paymentAmount: 120_000,
+    priority: "urgent",
+    assignedOperator: "op3",
+    assignedAgronomist: "agr2",
+    droneImages: 156,
+    analysisProgress: 100,
+    detections: [sampleDetections[2]],
+    reportUrl: "/reports/REQ-010.pdf",
+  },
+  {
+    id: "REQ-011",
+    farmerId: "f11",
+    farmerName: "Joseph Kamga",
+    farmerPhone: "+237 6 78 11 22 33",
+    farmName: "Kamga Banana Farm",
+    location: { region: "Nord-Ouest", coordinates: { lat: 5.9527, lng: 10.1459 }, address: "Bamenda, Nord-Ouest" },
+    hectares: 70,
+    cropType: "Banana",
+    requestDate: "2026-02-15",
+    scheduledDate: "2026-02-20",
+    status: "scheduled",
+    paymentStatus: "paid",
+    paymentAmount: 1_050_000,
+    priority: "normal",
+    assignedOperator: "op1",
+  },
+  {
+    id: "REQ-012",
+    farmerId: "f12",
+    farmerName: "Cécile Etoa",
+    farmerPhone: "+237 6 63 22 33 44",
+    farmName: "Etoa Banana Garden",
+    location: { region: "Littoral", coordinates: { lat: 4.0645, lng: 9.7858 }, address: "Bonabéri, Douala" },
+    hectares: 5,
+    cropType: "Banana",
+    requestDate: "2026-02-19",
+    status: "pending_approval",
+    paymentStatus: "paid",
+    paymentAmount: 75_000,
+    priority: "normal",
+  },
+];
+
+// ─── Drone Operators ─────────────────────────────────────
+export const droneOperators: DroneOperator[] = [
+  { id: "op1", name: "Kevin Tamba", phone: "+237 6 77 01 01 01", region: "Littoral", status: "on_mission", completedMissions: 142, rating: 4.8 },
+  { id: "op2", name: "Alain Nkwenti", phone: "+237 6 55 02 02 02", region: "Sud-Ouest", status: "available", completedMissions: 98, rating: 4.6 }
+];
+
+// ─── Agronomists ─────────────────────────────────────────
+export const agronomists: Agronomist[] = [
+  { id: "agr1", name: "Dr. Alice Mboui", specialization: "Banana Pathology", validationsCompleted: 189 },
+  { id: "agr2", name: "Dr. Robert Essomba", specialization: "Soil Science", validationsCompleted: 145 },
+  { id: "agr3", name: "Dr. Florence Ngo Nyemb", specialization: "Entomology", validationsCompleted: 112 },
+];
+
+// ─── Schedule Events ─────────────────────────────────────
+export const scheduleEvents: ScheduleEvent[] = [
+  { id: "sch-1", requestId: "REQ-003", farmerName: "Paul Eyinga", farmName: "Eyinga Plantain Estate", date: "2026-02-21", time: "07:00", operatorId: "op2", operatorName: "Alain Nkwenti", hectares: 80, cropType: "Banana", region: "Centre", status: "scheduled" },
+  { id: "sch-2", requestId: "REQ-004", farmerName: "Françoise Atangana", farmName: "Atangana Banana Cooperative", date: "2026-02-19", time: "06:30", operatorId: "op1", operatorName: "Kevin Tamba", hectares: 30, cropType: "Banana", region: "Littoral", status: "in_progress" },
+  { id: "sch-3", requestId: "REQ-011", farmerName: "Joseph Kamga", farmName: "Kamga Banana Farm", date: "2026-02-20", time: "07:30", operatorId: "op1", operatorName: "Kevin Tamba", hectares: 70, cropType: "Banana", region: "Nord-Ouest", status: "scheduled" },
+  { id: "sch-4", requestId: "REQ-006", farmerName: "Esther Ngono", farmName: "Ngono Banana Fields", date: "2026-02-15", time: "06:00", operatorId: "op2", operatorName: "Alain Nkwenti", hectares: 100, cropType: "Banana", region: "Sud", status: "completed" },
+  { id: "sch-5", requestId: "REQ-007", farmerName: "Michel Ondoua", farmName: "Ondoua Banana Estate", date: "2026-02-13", time: "08:00", operatorId: "op1", operatorName: "Kevin Tamba", hectares: 55, cropType: "Banana", region: "Est", status: "completed" },
+  { id: "sch-6", requestId: "REQ-010", farmerName: "Brigitte Mvondo", farmName: "Mvondo Banana Plantation", date: "2026-02-16", time: "07:00", operatorId: "op3", operatorName: "Denis Ngassa", hectares: 8, cropType: "Banana", region: "Centre", status: "completed" },
+];
+
+// ─── Activity Feed ───────────────────────────────────────
+export const activityFeed: ActivityItem[] = [
+  { id: "a1", type: "request", message: "New scan request from Jean-Pierre Mbarga — 45ha Banana in Moungo", timestamp: "2 min ago", requestId: "REQ-001" },
+  { id: "a2", type: "payment", message: "Payment received: XAF 675,000 for REQ-001", timestamp: "5 min ago", requestId: "REQ-001" },
+  { id: "a3", type: "request", message: "New scan request from Cécile Etoa — 5ha Banana in Douala", timestamp: "18 min ago", requestId: "REQ-012" },
+  { id: "a4", type: "scan", message: "Drone imaging complete for Atangana Banana Cooperative — 247 images uploaded", timestamp: "42 min ago", requestId: "REQ-004", user: "Kevin Tamba" },
+  { id: "a5", type: "analysis", message: "AI analysis complete for Tchinda Banana Farm — 3 detections found", timestamp: "1 hr ago", requestId: "REQ-005" },
+  { id: "a6", type: "validation", message: "Dr. Alice Mboui validated results for REQ-005", timestamp: "1.5 hrs ago", requestId: "REQ-005", user: "Dr. Alice Mboui" },
+  { id: "a7", type: "completion", message: "Report sent to Brigitte Mvondo for Mvondo Banana Plantation", timestamp: "3 hrs ago", requestId: "REQ-010" },
+  { id: "a8", type: "schedule", message: "REQ-011 scheduled for Feb 20 — Operator: Kevin Tamba", timestamp: "4 hrs ago", requestId: "REQ-011", user: "Marie Nguemo" },
+  { id: "a9", type: "approval", message: "REQ-009 approved by Marie Nguemo", timestamp: "5 hrs ago", requestId: "REQ-009", user: "Marie Nguemo" },
+  { id: "a10", type: "completion", message: "Report sent to Michel Ondoua for Ondoua Banana Estate", timestamp: "6 hrs ago", requestId: "REQ-007" },
+];
+
+// ─── Monthly Revenue ─────────────────────────────────────
+export const monthlyRevenue: MonthlyRevenue[] = [
+  { month: "Sep", revenue: 8_200_000, scans: 38 },
+  { month: "Oct", revenue: 9_450_000, scans: 44 },
+  { month: "Nov", revenue: 11_000_000, scans: 49 },
+  { month: "Dec", revenue: 9_800_000, scans: 42 },
+  { month: "Jan", revenue: 12_600_000, scans: 56 },
+  { month: "Feb", revenue: 14_250_000, scans: 55 },
+];
+
+// ─── Disease Frequency ───────────────────────────────────
+export const diseaseFrequency: DiseaseFrequency[] = [
+  { disease: "Black Sigatoka", count: 72, percentage: 26 },
+  { disease: "Banana Bunchy Top", count: 48, percentage: 17 },
+  { disease: "Banana Weevil", count: 41, percentage: 15 },
+  { disease: "Panama Disease", count: 36, percentage: 13 },
+  { disease: "Banana Streak Virus", count: 31, percentage: 11 },
+  { disease: "Nematode Damage", count: 24, percentage: 9 },
+  { disease: "Other", count: 24, percentage: 9 },
+];
+
+// ─── Region Activity ─────────────────────────────────────
+export const regionActivity: RegionActivity[] = [
+  { region: "Moungo", scans: 48, revenue: 3_120_000 },
+  { region: "Fako", scans: 42, revenue: 2_850_000 },
+  { region: "Littoral", scans: 37, revenue: 2_480_000 },
+  { region: "Centre", scans: 33, revenue: 2_100_000 },
+  { region: "Sud-Ouest", scans: 28, revenue: 1_950_000 },
+  { region: "Ouest", scans: 24, revenue: 1_680_000 },
+];
+
+// ─── Reports ─────────────────────────────────────────────
+export const reports: Report[] = [
+  { id: "rpt-1", requestId: "REQ-006", farmerName: "Esther Ngono", farmName: "Ngono Banana Fields", cropType: "Banana", region: "Sud", completedDate: "2026-02-16", hectares: 100, detectionsCount: 2, overallHealth: "warning", sentToFarmer: true },
+  { id: "rpt-2", requestId: "REQ-007", farmerName: "Michel Ondoua", farmName: "Ondoua Banana Estate", cropType: "Banana", region: "Est", completedDate: "2026-02-14", hectares: 55, detectionsCount: 1, overallHealth: "healthy", sentToFarmer: true },
+  { id: "rpt-3", requestId: "REQ-010", farmerName: "Brigitte Mvondo", farmName: "Mvondo Banana Plantation", cropType: "Banana", region: "Centre", completedDate: "2026-02-17", hectares: 8, detectionsCount: 1, overallHealth: "healthy", sentToFarmer: true },
+  { id: "rpt-4", requestId: "REQ-005", farmerName: "David Tchinda", farmName: "Tchinda Banana Farm", cropType: "Banana", region: "Ouest", completedDate: "2026-02-18", hectares: 60, detectionsCount: 3, overallHealth: "critical", sentToFarmer: false },
 ];
