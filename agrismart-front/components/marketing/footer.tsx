@@ -45,11 +45,11 @@ export function MarketingFooter() {
             </p>
             <div className="mt-6 flex flex-col gap-3 text-sm text-slate-400">
               <a
-                href="mailto:contact@agrsmart.com"
+                href="mailto:contact@AgriSmart.com"
                 className="inline-flex items-center gap-2 hover:text-white transition-colors"
               >
                 <Mail className="h-4 w-4 text-primary-500" />
-                contact@agrsmart.com
+                contact@AgriSmart.com
               </a>
               <a
                 href="tel:+237600000000"
@@ -93,7 +93,7 @@ export function MarketingFooter() {
       <div className="border-t border-slate-800">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs text-slate-500">
-            &copy; {new Date().getFullYear()} Agrsmart. All rights reserved.
+            &copy; {new Date().getFullYear()} AgriSmart. All rights reserved.
           </p>
           <div className="flex items-center gap-6 text-xs text-slate-500">
             <Link href="/contact" className="hover:text-slate-300 transition-colors">

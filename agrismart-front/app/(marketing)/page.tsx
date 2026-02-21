@@ -58,10 +58,10 @@ function Hero() {
           {/* Headline */}
           <AnimateIn variants={fadeUp} delay={0.2}>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight text-white leading-[1.1]">
-              Protect your crops
+             See problems early
               <br />
               <span className="bg-gradient-to-r from-primary-400 via-emerald-400 to-primary-300 bg-clip-text text-transparent">
-                with AI precision
+                harvest with confidence
               </span>
             </h1>
           </AnimateIn>
@@ -69,7 +69,7 @@ function Hero() {
           {/* Subtitle */}
           <AnimateIn variants={fadeUp} delay={0.35}>
             <p className="mt-6 text-base sm:text-lg text-slate-400 leading-relaxed max-w-xl">
-              Agrsmart deploys professional drones with advanced AI to scan your
+              AgriSmart deploys professional drones with advanced AI to scan your
               banana plantations, detect diseases early, and deliver expert-validated
               reports all at a per-hectare cost you can afford.
             </p>
@@ -266,8 +266,8 @@ function ServicesOverview() {
   );
 }
 
-/* ──────────────── Why Agrsmart ──────────────── */
-function WhyAgrsmart() {
+/* ──────────────── Why AgriSmart ──────────────── */
+function WhyAgriSmart() {
   const benefits = [
     {
       icon: Zap,
@@ -338,7 +338,7 @@ function Testimonials() {
       name: "Jean-Pierre Mbarga",
       role: "Banana Farmer, Moungo",
       quote:
-        "Agrsmart detected Black Sigatoka on my plantation two weeks before it became visible. The early treatment saved over 3 hectares of crop.",
+        "AgriSmart detected Black Sigatoka on my plantation two weeks before it became visible. The early treatment saved over 3 hectares of crop.",
       rating: 5,
     },
     {
@@ -352,7 +352,7 @@ function Testimonials() {
       name: "Emmanuel Ngoua",
       role: "Cooperative Leader, Littoral",
       quote:
-        "We enrolled 12 farms in our cooperative. Agrsmart scans all of them in a single week. The cost per hectare is very reasonable.",
+        "We enrolled 12 farms in our cooperative. AgriSmart scans all of them in a single week. The cost per hectare is very reasonable.",
       rating: 5,
     },
   ];
@@ -418,7 +418,7 @@ function CtaBanner() {
               Ready to Protect Your Plantation?
             </h2>
             <p className="mt-4 text-base text-primary-100 max-w-lg mx-auto">
-              Join hundreds of farmers already using Agrsmart for early disease
+              Join hundreds of farmers already using AgriSmart for early disease
               detection and higher yields.
             </p>
             <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -480,7 +480,7 @@ export default function LandingPage() {
       <TrustBar />
       <HowItWorksPreview />
       <ServicesOverview />
-      <WhyAgrsmart />
+      <WhyAgriSmart />
       <Testimonials />
       <CtaBanner />
     </>

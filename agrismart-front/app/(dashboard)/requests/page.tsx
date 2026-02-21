@@ -294,6 +294,16 @@ export default function RequestsPage() {
                     </Button>
                   </div>
                 )}
+
+                {selectedRequest.status === "approved" && (
+                  <div className="pt-2">
+                    <a href="/scheduling">
+                      <Button className="w-full">
+                        <Calendar className="h-4 w-4" /> Schedule Mission
+                      </Button>
+                    </a>
+                  </div>
+                )}
               </div>
             </Card>
           ) : (

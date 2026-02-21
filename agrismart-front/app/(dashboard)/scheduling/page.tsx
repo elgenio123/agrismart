@@ -41,6 +41,19 @@ export default function SchedulingPage() {
   const today = new Date().getDate();
 
   const [selectedDay, setSelectedDay] = useState<number | null>(today);
+  const [showConfirm, setShowConfirm] = useState(false);
+  const [assigningId, setAssigningId] = useState<string | null>(null);
+  const [assignedFarm, setAssignedFarm] = useState<string>("");
+
+  const handleAssign = (reqId: string, farmName: string) => {
+    setAssigningId(reqId);
+    setAssignedFarm(farmName);
+    // Simulate a brief loading then show confirmation
+    setTimeout(() => {
+      setAssigningId(null);
+      setShowConfirm(true);
+    }, 800);
+  };
 
   // Get events for a particular day
   const getEventsForDay = (day: number): ScheduleEvent[] => {
@@ -202,8 +215,15 @@ export default function SchedulingPage() {
                     <div key={req.id} className="rounded-lg border border-border-light p-3">
                       <p className="text-sm font-semibold text-text-primary">{req.farmName}</p>
                       <p className="text-xs text-text-muted mt-0.5">{req.hectares}ha · {req.cropType} · {req.location.region}</p>
-                      <Button size="sm" variant="outline" className="mt-2 w-full">
-                        <Plus className="h-3 w-3" /> Assign & Schedule
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        className="mt-2 w-full"
+                        loading={assigningId === req.id}
+                        disabled={!selectedDay}
+                        onClick={() => handleAssign(req.id, req.farmName)}
+                      >
+                        <Plus className="h-3 w-3" /> Assign to Feb {selectedDay}
                       </Button>
                     </div>
                   ))}
@@ -246,6 +266,32 @@ export default function SchedulingPage() {
           </AnimateIn>
         </div>
       </div>
+      {/* Assignment Confirmation Modal */}
+      {showConfirm && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
+          <div className="mx-4 w-full max-w-sm rounded-2xl bg-white p-6 shadow-2xl animate-scale-in">
+            <div className="flex flex-col items-center text-center">
+              <div className="flex h-14 w-14 items-center justify-center rounded-full bg-primary-50 mb-4">
+                <CheckCircle2 className="h-7 w-7 text-primary-500" />
+              </div>
+              <h3 className="text-lg font-bold text-text-primary">Mission Assigned!</h3>
+              <p className="mt-2 text-sm text-text-secondary leading-relaxed">
+                <span className="font-semibold text-text-primary">{assignedFarm}</span> has been
+                scheduled for <span className="font-semibold text-text-primary">February {selectedDay}, 2026</span>.
+              </p>
+              <p className="mt-1 text-xs text-text-muted">
+                The assigned operator will be notified.
+              </p>
+              <Button
+                className="mt-6 w-full"
+                onClick={() => setShowConfirm(false)}
+              >
+                Done
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
     </PageTransition>
   );
 }

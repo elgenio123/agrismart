@@ -19,7 +19,7 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
         >
           <Menu className="h-5 w-5 text-text-primary" />
         </button>
-        <span className="text-sm font-bold text-text-primary">Agrsmart</span>
+        <span className="text-sm font-bold text-text-primary">AgriSmart</span>
       </div>
 
       <main className="md:ml-[220px] min-h-screen">

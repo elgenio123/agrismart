@@ -17,7 +17,7 @@ import type {
 export const currentUser: User = {
   id: "u1",
   name: "Marie Nguemo",
-  email: "marie@agrsmart.com",
+  email: "marie@AgriSmart.com",
   phone: "+237 6 99 12 34 56",
   role: "admin",
 };

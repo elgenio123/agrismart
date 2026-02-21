@@ -250,8 +250,8 @@ function ContactForm() {
               {
                 icon: Mail,
                 title: "Email",
-                value: "contact@agrsmart.com",
-                href: "mailto:contact@agrsmart.com",
+                value: "contact@AgriSmart.com",
+                href: "mailto:contact@AgriSmart.com",
                 description: "For general inquiries and support",
               },
               {
@@ -367,7 +367,7 @@ function Faq() {
     {
       question: "Do I need to buy or own a drone?",
       answer:
-        "No. Agrsmart owns and operates all drones. We deploy certified drone operators to your farm. You don't need any equipment or technical knowledge — just request a scan from your phone.",
+        "No. AgriSmart owns and operates all drones. We deploy certified drone operators to your farm. You don't need any equipment or technical knowledge — just request a scan from your phone.",
     },
     {
       question: "How long does the process take?",
@@ -390,14 +390,14 @@ function Faq() {
         "Our AI models achieve over 97% accuracy in laboratory benchmarks. Additionally, every AI diagnosis is reviewed by a certified agronomist before delivery, ensuring zero false positives in your final report.",
     },
     {
-      question: "Can I use Agrsmart for crops other than banana?",
+      question: "Can I use AgriSmart for crops other than banana?",
       answer:
         "Currently, our AI models are optimized for banana crop diseases. We're developing models for cocoa, coffee, and plantain, which will be available in future updates. Contact us if you're interested in early access.",
     },
     {
       question: "How do I get started?",
       answer:
-        "Simply fill out the contact form above, call us, or download the Agrsmart mobile app. Create an account, submit your first scan request, and we'll take care of the rest. Your first report will be in your hands within 48 hours.",
+        "Simply fill out the contact form above, call us, or download the AgriSmart mobile app. Create an account, submit your first scan request, and we'll take care of the rest. Your first report will be in your hands within 48 hours.",
     },
   ];
 
@@ -424,7 +424,7 @@ function Faq() {
               Still have questions? We&apos;re happy to help.
             </p>
             <a
-              href="mailto:contact@agrsmart.com"
+              href="mailto:contact@AgriSmart.com"
               className="inline-flex items-center gap-2 text-sm font-semibold text-primary-600 hover:text-primary-700 transition-colors"
             >
               <Mail className="h-4 w-4" /> Email us directly{" "}

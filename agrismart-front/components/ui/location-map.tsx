@@ -30,7 +30,7 @@ interface LocationMapProps {
 function LocationMapInner({ lat, lng, zoom = 13, className = "h-40 w-full rounded-lg overflow-hidden", markerLabel }: LocationMapProps) {
   const { isLoaded, loadError } = useJsApiLoader({
     googleMapsApiKey: GOOGLE_MAPS_API_KEY,
-    id: "agrsmart-google-map",
+    id: "AgriSmart-google-map",
   });
 
   const center = { lat, lng };

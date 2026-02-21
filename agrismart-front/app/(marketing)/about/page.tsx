@@ -188,7 +188,7 @@ function Team() {
     {
       name: "Sandrine Fotso",
       role: "CTO & Co-Founder",
-      bio: "Computer vision PhD from University of Yaoundé I. Led AI teams at two African startups before co-founding Agrsmart.",
+      bio: "Computer vision PhD from University of Yaoundé I. Led AI teams at two African startups before co-founding AgriSmart.",
       initials: "SF",
     },
     {

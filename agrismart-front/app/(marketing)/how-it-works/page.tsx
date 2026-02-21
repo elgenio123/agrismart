@@ -38,7 +38,7 @@ function Timeline() {
       icon: Smartphone,
       title: "Submit Your Scan Request",
       description:
-        "Open the Agrsmart mobile app and tap 'Request Scan'. Enter your farm location, approximate hectarage, and any specific concerns. You can also mark areas on the map where you've noticed issues.",
+        "Open the AgriSmart mobile app and tap 'Request Scan'. Enter your farm location, approximate hectarage, and any specific concerns. You can also mark areas on the map where you've noticed issues.",
       details: [
         "Available on iOS & Android",
         "GPS auto-detection for farm location",
@@ -108,7 +108,7 @@ function Timeline() {
       icon: UserCheck,
       title: "Expert Validation",
       description:
-        "A certified agronomist reviews every AI diagnosis. They confirm findings, add treatment recommendations, and ensure the report meets Agrsmart's quality standards before delivery.",
+        "A certified agronomist reviews every AI diagnosis. They confirm findings, add treatment recommendations, and ensure the report meets AgriSmart's quality standards before delivery.",
       details: [
         "Human-in-the-loop quality check",
         "Treatment plan formulation",

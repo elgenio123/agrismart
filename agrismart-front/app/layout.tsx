@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "Agrsmart — AI-Powered Crop Scanning",
-    template: "%s | Agrsmart",
+    default: "Agrismart — AI-Powered Crop Scanning",
+    template: "%s | Agrismart",
   },
   description:
     "Drone-based AI crop scanning and disease detection for precision agriculture in Central Africa.",

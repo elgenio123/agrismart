@@ -41,7 +41,7 @@ export default function SettingsPage() {
     setNotifications((prev) => ({ ...prev, [id]: !prev[id] }));
   };
 
-  const [aiModel, setAiModel] = useState("agrsmart-v3.2");
+  const [aiModel, setAiModel] = useState("AgriSmart-v3.2");
   const [confidenceThreshold, setConfidenceThreshold] = useState("75");
   const [autoAssign, setAutoAssign] = useState(true);
   const [timezone, setTimezone] = useState("Africa/Nairobi");
@@ -195,9 +195,9 @@ export default function SettingsPage() {
                     onChange={(e) => setAiModel(e.target.value)}
                     className="w-full rounded-lg border border-border bg-white px-3 py-2 text-sm focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 focus:outline-none hover:border-gray-300 transition-all cursor-pointer appearance-none"
                   >
-                    <option value="agrsmart-v3.2">Agrsmart v3.2 (Latest)</option>
-                    <option value="agrsmart-v3.1">Agrsmart v3.1 (Stable)</option>
-                    <option value="agrsmart-v3.0">Agrsmart v3.0 (Legacy)</option>
+                    <option value="AgriSmart-v3.2">AgriSmart v3.2 (Latest)</option>
+                    <option value="AgriSmart-v3.1">AgriSmart v3.1 (Stable)</option>
+                    <option value="AgriSmart-v3.0">AgriSmart v3.0 (Legacy)</option>
                   </select>
                 </div>
                 <div>

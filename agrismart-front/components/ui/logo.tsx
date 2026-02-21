@@ -48,7 +48,7 @@ export function Logo({
               "text-text-primary": variant === "dark",
             })}
           >
-            Agrsmart
+            AgriSmart
           </span>
           {subtitle && (
             <span

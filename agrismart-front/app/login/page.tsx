@@ -58,7 +58,7 @@ export default function LoginPage() {
           </motion.div>
         </div>
         <div className="relative z-10 p-10 text-xs text-white/30">
-          &copy; 2026 Agrsmart. All rights reserved.
+          &copy; 2026 AgriSmart. All rights reserved.
         </div>
       </div>
 
@@ -76,7 +76,7 @@ export default function LoginPage() {
           </div>
 
           <form onSubmit={handleLogin} className="space-y-5">
-            <Input label="Email" icon="mail" type="email" placeholder="you@agrsmart.com" defaultValue="marie@agrsmart.com" />
+            <Input label="Email" icon="mail" type="email" placeholder="you@AgriSmart.com" defaultValue="marie@AgriSmart.com" />
             <Input label="Password" icon="lock" type="password" showPasswordToggle placeholder="••••••••" defaultValue="password" />
             <div className="flex items-center justify-between text-sm">
               <label className="flex items-center gap-2 text-text-secondary cursor-pointer">

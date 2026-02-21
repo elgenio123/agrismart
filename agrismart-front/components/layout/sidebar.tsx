@@ -10,7 +10,7 @@ import {
   LayoutDashboard,
   ClipboardList,
   CalendarDays,
-  Cpu,
+  Microscope,
   FileBarChart,
   TrendingUp,
   Settings,
@@ -20,7 +20,7 @@ const navItems = [
   { label: "Overview", href: "/dashboard", icon: LayoutDashboard },
   { label: "Requests", href: "/requests", icon: ClipboardList },
   { label: "Scheduling", href: "/scheduling", icon: CalendarDays },
-  { label: "Processing", href: "/processing", icon: Cpu },
+  { label: "Analysis", href: "/analysis", icon: Microscope },
   { label: "Reports", href: "/reports", icon: FileBarChart },
   { label: "Analytics", href: "/analytics", icon: TrendingUp },
 ];

@@ -46,7 +46,7 @@ export function MarketingNavbar() {
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 sm:h-20 items-center justify-between">
-            <Link href="/" aria-label="Agrsmart Home">
+            <Link href="/" aria-label="AgriSmart Home">
               <Logo size="md" variant={scrolled ? "dark" : "light"} />
             </Link>
 
