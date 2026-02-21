@@ -146,12 +146,12 @@ export function MarketingNavbar() {
                 </Link>
               ))}
               <div className="mt-8 flex flex-col gap-3">
-                <Link
+                {/* <Link
                   href="/login"
                   className="text-center py-3 text-sm font-medium text-text-secondary border border-border rounded-xl hover:bg-surface-secondary transition-colors"
                 >
                   Log in
-                </Link>
+                </Link> */}
                 <Link
                   href="/contact"
                   className="text-center py-3 text-sm font-semibold text-white bg-primary-500 rounded-xl shadow-lg shadow-primary-500/25"
